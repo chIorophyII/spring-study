@@ -8,5 +8,5 @@ DIP(의존 역전 원칙)
 ISP(인터페이스 분리 원칙)
 
 출처  
-https://mangkyu.tistory.com/194
+https://mangkyu.tistory.com/194  
 https://blog.itcode.dev/posts/2021/08/15/liskov-subsitution-principle
