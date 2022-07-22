@@ -1,4 +1,4 @@
-package com.example.oop.isp;
+package com.example.oop.solid.isp;
 
 import org.springframework.stereotype.Component;
 

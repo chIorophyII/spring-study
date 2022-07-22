@@ -1,4 +1,4 @@
-package com.example.oop.lsp;
+package com.example.oop.solid.lsp;
 
 class Rectangle_
 {

@@ -1,4 +1,4 @@
-package com.example.oop.ocp;
+package com.example.oop.solid.srp;
 
 import com.example.oop.user.User;
 import com.example.oop.user.UserRepository;
@@ -6,17 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-public class OCP {
-    public interface PasswordEncoder {
-        String encryptPassword(final String pw);
-    }
+import java.nio.charset.StandardCharsets;
 
+public class SRP {
     @Component
-    public class SHA256PasswordEncoder implements PasswordEncoder {
+    public class SimplePasswordEncoder {
 
-        @Override
         public String encryptPassword(final String pw) {
-            return null;
+            final StringBuilder sb = new StringBuilder();
+
+            for(byte b : pw.getBytes(StandardCharsets.UTF_8)) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
         }
     }
 
@@ -25,7 +27,7 @@ public class OCP {
     public class UserService {
 
         private final UserRepository userRepository;
-        private final PasswordEncoder passwordEncoder;
+        private final SimplePasswordEncoder passwordEncoder;
 
         public void addUser(final String email, final String pw) {
             final String encryptedPassword = passwordEncoder.encryptPassword(pw);

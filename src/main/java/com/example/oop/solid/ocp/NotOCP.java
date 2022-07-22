@@ -1,4 +1,4 @@
-package com.example.oop.ocp;
+package com.example.oop.solid.ocp;
 
 import org.springframework.stereotype.Component;
 

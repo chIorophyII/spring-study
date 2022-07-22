@@ -1,4 +1,4 @@
-package com.example.oop.srp;
+package com.example.oop.solid.srp;
 
 import com.example.oop.user.User;
 import com.example.oop.user.UserRepository;
