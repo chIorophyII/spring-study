@@ -1,4 +1,4 @@
-package com.example.oop.objectorientedprogramming;
+package com.example.oop.oop;
 
 public class PP {
     // 주스 잔여 개수

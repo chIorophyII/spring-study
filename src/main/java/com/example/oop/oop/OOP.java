@@ -1,4 +1,4 @@
-package com.example.oop.objectorientedprogramming;
+package com.example.oop.oop;
 
 public class OOP {
     public static void main(String[] args) {

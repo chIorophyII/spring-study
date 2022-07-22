@@ -1,4 +1,4 @@
-package com.example.oop.singleresponsibilityprinciple;
+package com.example.oop.srp;
 
 import com.example.oop.user.User;
 import com.example.oop.user.UserRepository;
@@ -24,7 +24,7 @@ public class NotSRP {
             final String encryptedPassword = sb.toString();
             final User user = User.builder()
                     .email(email)
-                    .pw(encryptedPassword).build();
+                    .password(encryptedPassword).build();
 
             userRepository.save(user);
         }
