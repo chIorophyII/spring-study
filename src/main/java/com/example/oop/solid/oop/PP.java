@@ -1,7 +1,7 @@
 package com.example.oop.solid.oop;
 
 public class PP {
-    // 주스 잔여 개수
+    // 잔여 주스 개수
     static int Orange_juice = 10;
     static int Apple_juice = 20;
 
@@ -10,7 +10,7 @@ public class PP {
         int customer_changes = 1000;
         String customer_has = null;
 
-        // 오렌지 주스가 먹고싶군요
+        // 오렌지 주스가 먹고싶다
         String want_juice = "Orange juice";
 
         if(want_juice.equals("Orange juice")) {
@@ -45,17 +45,9 @@ public class PP {
     }
 
 
-    // 오렌지주스 구매 가능?
+    // 오렌지 주스 구매 가능?
     static boolean Orange_possible(int pay) {
-
-        if (Orange_juice > 0) {
-
-            if (pay >= 500) {
-                return true;
-            }
-        }
-
-        return false;
+        return Orange_juice > 0 && pay >= 500;
     }
 
     // 오렌지 주스 꺼내기
@@ -64,20 +56,12 @@ public class PP {
         return 500;
     }
 
-    // 사과주스 구매 가능?
+    // 사과 주스 구매 가능?
     static boolean Apple_possible(int pay) {
-
-        if (Apple_juice > 0) {
-
-            if (pay >= 300) {
-                return true;
-            }
-
-        }
-        return false;
+        return Apple_juice > 0 && pay >= 300;
     }
 
-    // 사과주스 꺼내기
+    // 사과 주스 꺼내기
     static int getAppleJuice() {
         Apple_juice--;
         return 300;
