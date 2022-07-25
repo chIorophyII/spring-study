@@ -14,14 +14,16 @@ class Rectangle_
 }
 
 class Square_ extends Rectangle_ {
+    @Override
     public void setWidth(int width) {
-        setWidth(width);
-        setHeight(getWidth());
+        super.setWidth(width);
+        super.setHeight(getWidth());
     }
 
+    @Override
     public void setHeight(int height) {
-        setHeight(height);
-        setWidth(getHeight());
+        super.setHeight(height);
+        super.setWidth(getHeight());
     }
 }
 
@@ -34,3 +36,13 @@ public class NotLSP {
         System.out.println(rectangle.getArea());
     }
 }
+
+
+//    public static void main(String[] args)
+//    {
+//        Rectangle_ rectangle = new Square_();
+//        rectangle.setWidth(10);
+//        rectangle.setHeight(5);
+//
+//        System.out.println(rectangle.getArea());
+//    }
