@@ -1,42 +1,27 @@
 package com.example.oop.solid.lsp;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 class Rectangle_
 {
     protected int width,height;
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public int getArea() {
         return width * height;
     }
 }
 
 class Square_ extends Rectangle_ {
-    @Override
-    public void setWidth(int width)
-    {
-        super.setWidth(width);
-        super.setHeight(getWidth());
+    public void setWidth(int width) {
+        setWidth(width);
+        setHeight(getWidth());
     }
 
-    @Override
     public void setHeight(int height) {
-        super.setHeight(height);
-        super.setWidth(getHeight());
+        setHeight(height);
+        setWidth(getHeight());
     }
 }
 
