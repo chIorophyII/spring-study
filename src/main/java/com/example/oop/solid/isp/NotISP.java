@@ -8,7 +8,7 @@ public class NotISP {
     }
 
     @Component
-    public class SHA256PasswordEncoder implements PasswordEncoder {
+    public static class SHA256PasswordEncoder implements PasswordEncoder {
 
         @Override
         public String encryptPassword(final String pw)  {

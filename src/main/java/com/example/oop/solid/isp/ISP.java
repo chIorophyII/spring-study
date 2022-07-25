@@ -12,7 +12,7 @@ public class ISP {
     }
 
     @Component
-    public class SHA256PasswordEncoder implements PasswordEncoder, PasswordChecker {
+    public static class SHA256PasswordEncoder implements PasswordEncoder, PasswordChecker {
 
         @Override
         public String encryptPassword(final String pw)  {

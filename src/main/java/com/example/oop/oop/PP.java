@@ -1,4 +1,4 @@
-package com.example.oop.solid.oop;
+package com.example.oop.oop;
 
 public class PP {
     // 잔여 주스 개수

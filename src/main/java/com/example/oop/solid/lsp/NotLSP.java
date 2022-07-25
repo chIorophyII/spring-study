@@ -37,12 +37,12 @@ public class NotLSP {
     }
 }
 
-
-//    public static void main(String[] args)
-//    {
+//public class NotLSP {
+//    public static void main(String[] args) {
 //        Rectangle_ rectangle = new Square_();
 //        rectangle.setWidth(10);
 //        rectangle.setHeight(5);
 //
 //        System.out.println(rectangle.getArea());
 //    }
+//}
