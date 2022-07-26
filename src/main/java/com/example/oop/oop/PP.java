@@ -36,14 +36,14 @@ public class PP {
                 System.out.println("사과 주스를 구매하실 수 없습니다");
             }
 
-        } else {
+        }
 
+        else {
             System.out.println("없는 물품입니다");
         }
 
         System.out.println("잔액 : " + customer_changes + "\t갖고있는 음료 : " + customer_has);
     }
-
 
     // 오렌지 주스 구매 가능?
     static boolean Orange_possible(int pay) {
