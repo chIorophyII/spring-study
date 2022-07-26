@@ -1,71 +1,36 @@
 package com.example.oop.property;
 
-import lombok.AllArgsConstructor;
-import java.util.Date;
+class Student {
+    public final String name;
 
-
-@AllArgsConstructor
-abstract class Computer {
-    private final String OS;
-
-    public void startUp() {
-        System.out.println(OS + " - started at " + new Date().toString());
+    public Student(String name) {
+        this.name = name;
     }
 
-    public void shutDown() {
-        System.out.println(OS + " - shutdown at " + new Date().toString());
-    }
-
-    abstract public void run();
-}
-
-class Asus extends Computer {
-    public Asus(String os) {
-        super(os);
-    }
-
-    @Override
-    public void run() {
-        System.out.println("ASUS 작업 수행");
+    public void study() {
+        System.out.println(name + "가 공부합니다.");
     }
 }
 
-class Dell extends Computer {
-    public Dell(String os) {
-        super(os);
+class Girl extends Student {
+    public Girl(String name) {
+        super(name);
+    }
+    // 재정의
+    public void study() {
+        System.out.println(name + "가 열심히 공부합니다.");
     }
 
-    @Override
-    public void startUp() {
-        super.startUp();
-        System.out.println("시스템 안정화 수행");
-    }
-
-    @Override
-    public void shutDown() {
-        System.out.println("시스템 프로세스 정리 수행");
-        super.shutDown();
-    }
-
-    @Override
-    public void run() {
-        System.out.println("DELL 작업 수행");
+    public void walk() {
+        System.out.println(name + "가 걷습니다.");
     }
 }
 
 public class Inheritance {
     public static void main(String[] args) {
-        Dell dell = new Dell("Windows 10 Pro");
-        Asus asus = new Asus("Ubuntu 21.04");
+        final Girl girl = new Girl("영희");
 
-        dell.startUp();
-        dell.run();
-        dell.shutDown();
-
-        System.out.println();
-
-        asus.startUp();
-        asus.run();
-        asus.shutDown();
+        girl.study();
+        girl.walk();
     }
 }

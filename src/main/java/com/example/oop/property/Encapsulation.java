@@ -29,7 +29,7 @@ public class Encapsulation {
     }
 }
 
-class publicA{
+class publicA {
     public void run() {
         B b = new B();
         b.publicMethod();
@@ -43,33 +43,29 @@ class protectedA extends B {
 }
 
 class defaultA {
-        void defaultMethod() {
-        }
-}
-
-class privateA extends B {
-    public void run() {
-        B b = new B();
-        b.privateMethod();
-        privateMethod();
+    void defaultMethod() {
     }
 }
+
+//class privateA extends B {
+//    public void run() {
+//        B b = new B();
+//        b.privateMethod();
+//        privateMethod();
+//    }
+//}
 
 class B {
-    public void publicMethod()
-    {
+    public void publicMethod() {
         System.out.println("public 메소드 접근");
     }
-    void defaultMethod()
-    {
+    void defaultMethod() {
         System.out.println("default 메소드 접근");
     }
-    protected void protectedMethod()
-    {
+    protected void protectedMethod() {
         System.out.println("protected 메소드 접근");
     }
-    private void privateMethod()
-    {
+    private void privateMethod() {
         System.out.println("private 메소드 접근");
     }
 }
