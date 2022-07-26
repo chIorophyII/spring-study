@@ -11,7 +11,7 @@ public class NotSRP {
 
     @Service
     @RequiredArgsConstructor
-    public class UserService_{
+    public class UserService{
         private final UserRepository userRepository;
 
         public void addUser(final String email, final String pw) {
