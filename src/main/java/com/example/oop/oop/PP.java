@@ -5,6 +5,28 @@ public class PP {
     static int Orange_juice = 10;
     static int Apple_juice = 20;
 
+    // 오렌지 주스 구매 가능?
+    static boolean Orange_possible(int pay) {
+        return Orange_juice > 0 && pay >= 500;
+    }
+
+    // 오렌지 주스 꺼내기
+    static int getOrangeJuice() {
+        Orange_juice--;
+        return 500;
+    }
+
+    // 사과 주스 구매 가능?
+    static boolean Apple_possible(int pay) {
+        return Apple_juice > 0 && pay >= 300;
+    }
+
+    // 사과 주스 꺼내기
+    static int getAppleJuice() {
+        Apple_juice--;
+        return 300;
+    }
+
     public static void main(String[] args) {
 
         int customer_changes = 1000;
@@ -45,25 +67,5 @@ public class PP {
         System.out.println("잔액 : " + customer_changes + "\t갖고있는 음료 : " + customer_has);
     }
 
-    // 오렌지 주스 구매 가능?
-    static boolean Orange_possible(int pay) {
-        return Orange_juice > 0 && pay >= 500;
-    }
 
-    // 오렌지 주스 꺼내기
-    static int getOrangeJuice() {
-        Orange_juice--;
-        return 500;
-    }
-
-    // 사과 주스 구매 가능?
-    static boolean Apple_possible(int pay) {
-        return Apple_juice > 0 && pay >= 300;
-    }
-
-    // 사과 주스 꺼내기
-    static int getAppleJuice() {
-        Apple_juice--;
-        return 300;
-    }
 }
