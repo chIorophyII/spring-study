@@ -26,7 +26,7 @@ public class PP {
         Apple_juice--;
         return 300;
     }
-
+    // 메인 메소드
     public static void main(String[] args) {
 
         int customer_changes = 1000;
@@ -66,6 +66,4 @@ public class PP {
 
         System.out.println("잔액 : " + customer_changes + "\t갖고있는 음료 : " + customer_has);
     }
-
-
 }
