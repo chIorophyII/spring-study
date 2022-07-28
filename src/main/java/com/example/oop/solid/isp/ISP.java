@@ -1,28 +1,52 @@
 package com.example.oop.solid.isp;
 
-import org.springframework.stereotype.Component;
-
 public class ISP {
-    public interface PasswordEncoder {
-        String encryptPassword(final String pw);
+    // 무선충전
+    public interface WirelessChargable {
+        void wirelessCharge();
+    }
+    // AR
+    public interface ARable {
+        void ar();
+    }
+    // 생체인식
+    public interface Biometricsable {
+        void biometrics();
     }
 
-    public interface PasswordChecker {
-        boolean isCorrectPassword(final String rawPw, final String pw);
+    public class SmartPhone {
+        // 통화
+        public void call(String number) {
+            System.out.println(number + " 통화 연결");
+        }
+        // 문자
+        public void message(String number, String text) {
+            System.out.println(number + ": " + text);
+        }
     }
 
-    @Component
-    public static class SHA256PasswordEncoder implements PasswordEncoder, PasswordChecker {
-
+    public class S20 extends SmartPhone implements WirelessChargable, ARable, Biometricsable {
         @Override
-        public String encryptPassword(final String pw)  {
-            return null;
+        public void wirelessCharge() {
+            System.out.println("무선충전 기능");
         }
 
         @Override
-        public boolean isCorrectPassword(final String rawPw, final String pw) {
-            final String encryptedPw = encryptPassword(rawPw);
-            return encryptedPw.equals(pw);
+        public void ar() {
+            System.out.println("AR 기능");
+        }
+
+        @Override
+        public void biometrics() {
+            System.out.println("생체인식 기능");
+        }
+    }
+
+    public class S2 extends SmartPhone {
+        @Override
+        public void message(String number, String text) {
+            System.out.println("In S2");
+            super.message(number, text);
         }
     }
 }
