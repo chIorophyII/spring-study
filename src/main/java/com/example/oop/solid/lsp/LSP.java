@@ -35,3 +35,4 @@ public class LSP {
         System.out.println(square.getArea());
     }
 }
+

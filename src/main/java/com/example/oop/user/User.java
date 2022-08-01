@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Builder
-@Entity
+@Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
