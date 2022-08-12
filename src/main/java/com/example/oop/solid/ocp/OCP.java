@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class OCP {
+    // 암호화 추상화
     public interface PasswordEncoder {
         String encryptPassword(final String pw);
     }

@@ -49,6 +49,7 @@ public class NotOCP {
     public static class UserService_notocp {
 
         private final UserRepository userRepository;
+        // UserService에서 암호화 알고리즘을 다시 수정해야 하고, 이것은 수정에 대해 닫혀있지 않음
         private final SHA256PasswordEncoder_ passwordEncoder;
 
         public void addUser(final String email, final String pw) {
