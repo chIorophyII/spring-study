@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service;
 
 // 시큐리티 session(내부 Authentication(내부 UserDetails))
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
+        System.out.println("username" + username);
         Users user = userRepository.findByUsername(username);
+        System.out.println("user" + user);
         if (user != null) {
             return new PrincipalDetails(user);
         }

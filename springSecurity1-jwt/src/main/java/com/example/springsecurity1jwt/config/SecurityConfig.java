@@ -3,6 +3,7 @@ package com.example.springsecurity1jwt.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,5 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login") // /login 주소가 호출되면 시큐리티가 낚아채서 로그인 진행
                 .defaultSuccessUrl("/"); // 로그인 성공시
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        // h2-console 사용에 대한 허용 (CSRF, FrameOptions 무시)
+        web
+                .ignoring()
+                .antMatchers("/h2-console/**");
     }
 }
