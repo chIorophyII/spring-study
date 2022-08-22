@@ -5,6 +5,7 @@ import com.example.springsecurity1jwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,16 +27,19 @@ public class IndexController {
     }
 
     @GetMapping("/user")
+    @ResponseBody
     public String user() {
         return "user";
     }
 
     @GetMapping("/admin")
+    @ResponseBody
     public String admin() {
         return "admin";
     }
 
     @GetMapping("/manager")
+    @ResponseBody
     public String manager() {
         return "manager";
     }
@@ -61,5 +65,19 @@ public class IndexController {
         user.setPassword(encPassword);
         userRepository.save(user);
         return "redirect:/loginForm";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/info")
+    @ResponseBody
+    public String info() {
+        return "개인정보";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/data")
+    @ResponseBody
+    public String data() {
+        return "데이터정보";
     }
 }

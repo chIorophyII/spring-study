@@ -18,7 +18,7 @@ User 오브젝트 타입 => UserDetails 타입 객체
 
 Security Session => Authentication => UserDetails
 */
-
+// 로그인
 @AllArgsConstructor
 public class PrincipalDetails implements UserDetails {
 

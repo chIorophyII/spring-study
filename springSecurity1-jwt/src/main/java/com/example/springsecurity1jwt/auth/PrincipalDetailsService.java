@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+// 회원가입
 // 시큐리티 session(내부 Authentication(내부 UserDetails))
 @Service
 @RequiredArgsConstructor
@@ -18,9 +19,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username" + username);
         Users user = userRepository.findByUsername(username);
-        System.out.println("user" + user);
         if (user != null) {
             return new PrincipalDetails(user);
         }
