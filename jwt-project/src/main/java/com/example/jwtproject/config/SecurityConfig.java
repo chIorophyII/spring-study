@@ -1,6 +1,7 @@
 package com.example.jwtproject.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,8 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CorsConfig corsConfig;
-
+//    private final CorsConfig corsConfig;
+    private final CorsFilter corsFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -21,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                /* 시큐리티 인증이 필요할 때 필터에 등록은 이렇게
+                 인증이 필요 없으면 @CrossOrigin */
+                .addFilter(corsFilter)
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
