@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login") // /login 주소가 호출되면 시큐리티가 낚아채서 로그인 진행
                 .defaultSuccessUrl("/"); // 로그인 성공시
     }
- 
+
     @Override
     public void configure(WebSecurity web) {
         // h2-console 사용에 대한 허용 (CSRF, FrameOptions 무시)

@@ -4,6 +4,7 @@ package com.example.springsecurity1jwt.auth;
 import com.example.springsecurity1jwt.model.Users;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class PrincipalDetails implements UserDetails {
                 return user.getRole();
             }
         });
+        // 이것도 된다
+//        collect.add(new SimpleGrantedAuthority(user.getRole()));
         return collect;
     }
 
