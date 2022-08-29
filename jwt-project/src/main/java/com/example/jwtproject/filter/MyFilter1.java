@@ -15,7 +15,7 @@ public class MyFilter1 implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
 //        System.out.println(req.getMethod());
-
+        // 토큰 : 코스
         if (req.getMethod().equals("POST")) {
             System.out.println("POST 요청됨");
             String headerAuth = req.getHeader("Authorization");
