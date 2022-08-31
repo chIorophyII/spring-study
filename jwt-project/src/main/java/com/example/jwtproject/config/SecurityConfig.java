@@ -1,5 +1,6 @@
 package com.example.jwtproject.config;
 
+import com.example.jwtproject.config.jwt.JwtAuthenticationFilter;
 import com.example.jwtproject.filter.MyFilter1;
 import com.example.jwtproject.filter.MyFilter3;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(corsFilter)
                 .formLogin().disable()
                 .httpBasic().disable()
+                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // AuthenticationManager
                 .authorizeRequests()
                 .antMatchers("/api/vi/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
@@ -47,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("api/vi/admin")
                 .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                ;
     }
 }
