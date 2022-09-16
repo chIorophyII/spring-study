@@ -86,7 +86,7 @@ public class UserService {
             throw new IllegalArgumentException(ILLEGAL_PASSWORD_NOT_VALID);
         }
 
-        String token = jwtTokenUtils.generateJwtToken(foundUser);
+        String token = jwtTokenUtils.generateJwtToken(foundUser); 
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + " " + token);
