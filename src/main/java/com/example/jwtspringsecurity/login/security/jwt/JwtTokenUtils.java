@@ -1,12 +1,17 @@
 package com.example.jwtspringsecurity.login.security.jwt;
 
+import com.example.jwtspringsecurity.login.dto.UserDto;
 import com.example.jwtspringsecurity.login.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtTokenUtils {
@@ -29,20 +34,32 @@ public class JwtTokenUtils {
 
     public String generateJwtToken(User user) {
         String token = null;
-        try {
-            token = Jwts.builder()
-                    .setIssuer(ISSUER)
-                    .claim(CLAIM_USER_NAME, user.getUsername())
-                    .claim(CLAIM_ROLE, user.getUserRole())
-                    // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
-                    .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
-                    .signWith(generateAlgorithm(), JWT_SECRET)
-                    .compact();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        token = Jwts.builder()
+                .setHeader(createHeader())
+                .setIssuer(ISSUER)
+                .setClaims(createClaims(user))
+                // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
+                .signWith(generateAlgorithm(), JWT_SECRET)
+                .compact();
 
         return token;
+    }
+
+    private Map<String, Object> createHeader() {
+        Map<String, Object> header = new HashMap<>();
+        header.put("alg", "HS256");
+        header.put("typ", "JWT");
+
+        return header;
+    }
+
+    private Map<String, Object> createClaims(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_USER_NAME, user.getUsername());
+        claims.put(CLAIM_ROLE, user.getUserRole());
+
+        return claims;
     }
 
     private static SignatureAlgorithm generateAlgorithm() {

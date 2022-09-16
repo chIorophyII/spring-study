@@ -86,11 +86,17 @@ public class UserService {
             throw new IllegalArgumentException(ILLEGAL_PASSWORD_NOT_VALID);
         }
 
-        String token = jwtTokenUtils.generateJwtToken(foundUser); 
+        HttpHeaders headers = headerToken(foundUser);
+
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body("로그인 성공");
+    }
+
+    // 토큰을 헤더에 담음
+    public HttpHeaders headerToken(User user) {
+        String token = jwtTokenUtils.generateJwtToken(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + " " + token);
-
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body("로그인 성공");
+        return headers;
     }
 }
