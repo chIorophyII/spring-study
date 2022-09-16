@@ -1,5 +1,7 @@
 package com.example.jwtspringsecurity.login.security.jwt;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.example.jwtspringsecurity.login.dto.UserDto;
 import com.example.jwtspringsecurity.login.model.User;
 import io.jsonwebtoken.Jwts;
@@ -34,35 +36,27 @@ public class JwtTokenUtils {
 
     public String generateJwtToken(User user) {
         String token = null;
-        token = Jwts.builder()
-                .setHeader(createHeader())
-                .setIssuer(ISSUER)
-                .setClaims(createClaims(user))
-                // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
-                .signWith(generateAlgorithm(), JWT_SECRET)
-                .compact();
+
+        token = JWT.create()
+                .withIssuer(ISSUER)
+                .withClaim(CLAIM_USER_NAME, user.getUsername())
+                .withClaim(CLAIM_ROLE, user.getUserRole().toString())
+                .withClaim(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
+                .sign(generateAlgorithm(JWT_SECRET));
 
         return token;
-    }
-
-    private Map<String, Object> createHeader() {
-        Map<String, Object> header = new HashMap<>();
-        header.put("alg", "HS256");
-        header.put("typ", "JWT");
-
-        return header;
     }
 
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_USER_NAME, user.getUsername());
         claims.put(CLAIM_ROLE, user.getUserRole());
+        claims.put(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC));
 
         return claims;
     }
 
-    private static SignatureAlgorithm generateAlgorithm() {
-        return SignatureAlgorithm.HS256;
+    private static Algorithm generateAlgorithm(String secretKey) {
+        return Algorithm.HMAC256(secretKey.getBytes());
     }
 }
