@@ -15,7 +15,7 @@ public class UserDto {
     String username;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,10}$", message = "비밀번호는 영문/숫자/특수문자(!@#$%^&*)를 포함해 6~10자로 입력해 주세요.")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{6,10}", message = "비밀번호는 영문/숫자/특수문자(!@#$%^&*)를 포함해 6~10자로 입력해 주세요.")
     String password;
 
     User.UserRole userRole;
