@@ -2,15 +2,10 @@ package com.example.jwtspringsecurity.login.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.jwtspringsecurity.login.dto.UserDto;
 import com.example.jwtspringsecurity.login.model.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +26,11 @@ public class JwtTokenUtils {
     public static final String CLAIM_ROLE = "ROLE";
     public static final String ISSUER = "princess";
     @Value("${jwt.secretkey}")
-    String JWT_SECRET;
+   String JWT_SECRET;
 
     public String generateJwtToken(User user) {
         String token = null;
+        System.out.println("secret Key : " + JWT_SECRET);
 
         token = JWT.create()
                 .withIssuer(ISSUER)

@@ -1,8 +1,13 @@
 package com.example.jwtspringsecurity.login.security.provider;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
+import com.example.jwtspringsecurity.login.security.jwt.JwtTokenUtils;
 import com.example.jwtspringsecurity.login.service.UserDetailsServiceImpl;
-import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,7 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Optional;
 
+import static com.example.jwtspringsecurity.exception.ExceptionMessage.ILLEGAL_INVALID_TOKEN;
+
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -31,47 +41,45 @@ public class JwtTokenProvider {
 
     // 토큰으로 인증 정보 조회
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(decodeUsername(token));
         return new UsernamePasswordAuthenticationToken(
                 // The credentials that prove the principal is correct.
                 userDetails, "", userDetails.getAuthorities());
     }
 
     // 토큰에서 회원 정보 추출
-    public String getUsername(String token) {
-        try {
-            return Jwts.parser()
-                    .setSigningKey(JWT_SECRET)
-                    .parseClaimsJws(token)
-                    .getBody().getSubject();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims().getSubject();
+    public String decodeUsername(String token) {
+        DecodedJWT decodedJWT = isValidToken(token)
+                .orElseThrow(() -> new IllegalArgumentException(ILLEGAL_INVALID_TOKEN));
+
+        Date now = new Date();
+        if (decodedJWT.getExpiresAt().before(now)) {
+            throw new IllegalArgumentException(ILLEGAL_INVALID_TOKEN);
         }
+
+        String username = decodedJWT
+                .getClaim(JwtTokenUtils.CLAIM_USER_NAME)
+                .asString();
+
+        return username;
     }
 
-    // 토큰 유효성 검사
-    public boolean isValidToken(String token) {
-        try {
-            Jwts.parser()
-                    .setSigningKey(JWT_SECRET)
-                    .parseClaimsJws(token);
-        } catch (SignatureException e) {
-            // 서명 검증 실패
-            System.out.println("Invalid JWT signature");
-        } catch (MalformedJwtException e) {
-            // 유효한 토큰이 아닌 경우
-            System.out.println("Invalid JWT token");
-        } catch (ExpiredJwtException e) {
-            // 토큰이 만료된 경우
-            System.out.println("JWT token is expired");
-        } catch (UnsupportedJwtException e) {
-            System.out.println("JWT token is unsupported");
-        } catch (IllegalArgumentException e) {
-            // 문자열이 null이나 공백인 경우
-            System.out.println("JWT claims string is empty");
-        }
-        return false;
+    public Optional<DecodedJWT> isValidToken(String token) {
+        DecodedJWT jwt = null;
 
+        try {
+            JWTVerifier verifier = JWT
+                    .require(generateAlgorithm(JWT_SECRET))
+                    .build();
+            jwt = verifier.verify(token);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return Optional.ofNullable(jwt);
     }
 
+    private static Algorithm generateAlgorithm(String secretKey) {
+        return Algorithm.HMAC256(secretKey.getBytes());
+    }
 }
