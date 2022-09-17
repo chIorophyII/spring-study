@@ -27,7 +27,6 @@ public class JwtTokenUtils {
     // JWT 토큰의 유효기간: 3일 (단위: milliseconds)
     private static final int JWT_TOKEN_VALID_MILLI_SEC = JWT_TOKEN_VALID_SEC * 1000;
 
-    public static final String CLAIM_EXPIRED_DATE = "EXPIRED_DATE";
     public static final String CLAIM_USER_NAME = "USER_NAME";
     public static final String CLAIM_ROLE = "ROLE";
     public static final String ISSUER = "princess";
@@ -39,9 +38,8 @@ public class JwtTokenUtils {
 
         token = JWT.create()
                 .withIssuer(ISSUER)
-                .withClaim(CLAIM_USER_NAME, user.getUsername())
-                .withClaim(CLAIM_ROLE, user.getUserRole().toString())
-                .withClaim(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
+                .withPayload(createClaims(user))
+                .withExpiresAt(new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC))
                 .sign(generateAlgorithm(JWT_SECRET));
 
         return token;
@@ -50,8 +48,7 @@ public class JwtTokenUtils {
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_USER_NAME, user.getUsername());
-        claims.put(CLAIM_ROLE, user.getUserRole());
-        claims.put(CLAIM_EXPIRED_DATE, new Date(System.currentTimeMillis() + JWT_TOKEN_VALID_MILLI_SEC));
+        claims.put(CLAIM_ROLE, user.getUserRole().toString());
 
         return claims;
     }
