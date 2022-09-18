@@ -80,8 +80,14 @@ public class UserService {
     // 로그인
     @Transactional
     public ResponseEntity<String> login(UserDto userDto) {
-        User foundUser = userRepository.findByUsername(userDto.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException(ILLEGAL_USER_NOT_EXIST));
+        System.out.println("wa?");
+       User foundUser = userRepository.findByUsername(userDto.getUsername())
+                .orElse(null);
+
+        if (foundUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ILLEGAL_USER_NOT_EXIST);
+        }
+
         if(!passwordEncoder.matches(userDto.getPassword(), foundUser.getPassword())) {
             throw new IllegalArgumentException(ILLEGAL_PASSWORD_NOT_VALID);
         }

@@ -54,11 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                    .antMatchers("/signup/**", "/login").permitAll();
 //                    .antMatchers("/user/**")
 //                    .access("hasRole('USER') or hasRole('ADMIN')")
 //                    .antMatchers("/admin/**")
 //                    .access("hasRole('ADMIN')")
-                    .anyRequest().permitAll();
-
     }
 }
