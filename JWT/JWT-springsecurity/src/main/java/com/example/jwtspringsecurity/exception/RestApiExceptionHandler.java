@@ -17,20 +17,28 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class RestApiExceptionHandler {
-
-    //ExceptionHandler 를 통해 Global 예외 처리 . IllegalArgumentException,NullPointerException 발생시
-    // 오류에 해당하는 msg 와 400 코드가 가도록 설정 .
-
-    // illegalArgumentException이 떴을 때 여기서 관리하겠다
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<StatusMessage> handleApiRequestException(IllegalArgumentException ex) {
+    public ResponseEntity<StatusMessage> entireException(Exception ex) {
         StatusMessage message = new StatusMessage();
-        HttpHeaders headers= new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
         ex.printStackTrace();
-        message.setStatusCode(StatusMessage.StatusEnum.BAD_REQUEST);
+        message.setHttpStatus(StatusMessage.StatusEnum.BAD_REQUEST);
         message.setMessage(ex.getMessage());
+
+        return new ResponseEntity<>(message, headers, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<StatusMessage> handleApiRequestException(IllegalArgumentException ex) {
+//        StatusMessage message = new StatusMessage();
+//        HttpHeaders headers= new HttpHeaders();
+//        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//
+//        ex.printStackTrace();
+//        message.setHttpStatus(StatusMessage.StatusEnum.BAD_REQUEST);
+//        message.setMessage(ex.getMessage());
+
 
         return new ResponseEntity<>(message, headers, HttpStatus.BAD_REQUEST);
     }
@@ -41,7 +49,7 @@ public class RestApiExceptionHandler {
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-        message.setStatusCode(StatusMessage.StatusEnum.BAD_REQUEST);
+        message.setHttpStatus(StatusMessage.StatusEnum.BAD_REQUEST);
         message.setMessage(ex.getMessage());
         ex.printStackTrace();
 
@@ -56,7 +64,7 @@ public class RestApiExceptionHandler {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         ex.printStackTrace();
 
-        message.setStatusCode(StatusMessage.StatusEnum.BAD_REQUEST);
+        message.setHttpStatus(StatusMessage.StatusEnum.BAD_REQUEST);
         message.setMessage(ex.getMessage());
 
         return new ResponseEntity<>(message, headers, HttpStatus.BAD_REQUEST);

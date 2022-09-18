@@ -5,14 +5,12 @@ import lombok.Data;
 @Data
 public class StatusMessage {
 
-    private StatusEnum statusCode;
+    private StatusEnum httpStatus;
     private String message;
-    private Object data;
 
     public StatusMessage(){
-        this.statusCode = StatusEnum.BAD_REQUEST;
+        this.httpStatus = StatusEnum.BAD_REQUEST;
         this.message = null;
-        this.data = null;
     }
 
 
