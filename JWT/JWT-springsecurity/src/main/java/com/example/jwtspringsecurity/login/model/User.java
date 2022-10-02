@@ -34,11 +34,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    private Integer code;
+
     @Builder
-    public User(String username, String password, UserRole userRole) {
+    public User(String username, String password, UserRole userRole, Integer code) {
         this.username = username;
         this.password = password;
         this.userRole = userRole;
+        this.code = code;
     }
 
     @Override

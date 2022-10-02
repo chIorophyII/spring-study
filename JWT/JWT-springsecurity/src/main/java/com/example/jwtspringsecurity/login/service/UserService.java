@@ -44,6 +44,7 @@ public class UserService {
                         .username(adminDto.getUsername())
                         .password(passwordEncoder.encode(adminDto.getPassword()))
                         .userRole(User.UserRole.ADMIN)
+                        .code(adminDto.getCode())
                         .build();
         userRepository.save(user);
 

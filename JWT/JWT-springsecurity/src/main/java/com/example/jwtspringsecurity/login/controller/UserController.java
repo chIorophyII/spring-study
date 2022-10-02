@@ -2,6 +2,8 @@ package com.example.jwtspringsecurity.login.controller;
 
 import com.example.jwtspringsecurity.login.dto.UserDto;
 import com.example.jwtspringsecurity.login.service.UserService;
+import com.example.jwtspringsecurity.utils.AdminValidGroup;
+import com.example.jwtspringsecurity.utils.UserValidGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,20 +22,20 @@ public class UserController {
     // 관리자 가입
     @PostMapping("/signup/admin")
     @ResponseBody
-    public ResponseEntity<String> adminSignup(@Validated @RequestBody UserDto userDto, BindingResult bindingResult) {
+    public ResponseEntity<String> adminSignup(@Validated(AdminValidGroup.class) @RequestBody UserDto userDto, BindingResult bindingResult) {
         return userService.adminSignup(userDto, bindingResult);
     }
 
     // User 가입
     @PostMapping("/signup")
     @ResponseBody
-    public ResponseEntity<String> userSignup(@Validated @RequestBody UserDto userDto, BindingResult bindingResult) {
+    public ResponseEntity<String> userSignup(@Validated(UserValidGroup.class) @RequestBody UserDto userDto, BindingResult bindingResult) {
         return userService.userSignup(userDto, bindingResult);
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@Validated @RequestBody UserDto userDto) {
+    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
         return userService.login(userDto);
     }
 }
