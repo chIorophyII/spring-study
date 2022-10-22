@@ -26,7 +26,6 @@ public class StatusMessage {
         NOT_FOUND(404, "NOT_FOUND"),
         INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR");
 
-
         int statusCode;
         String code;
 
